@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المدرس</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-submit:disabled { background-color: #aaa; }
+        .btn-danger { background-color: #e74c3c; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 10px;
+            background-color: #2ecc71;
+            border-radius: 4px;
+            transition: width 0.2s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <h2 class="admin-title">لوحة تحكم المدرس (إدارة الاشتراكات والرفع)</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 20px;">التحكم في حسابات الطلاب، وتعديل الشهور المدفوعة لهم فوراً، ورفع الفيديوهات الدراسية مباشرة.</p>
+
+        <div class="admin-section">
+            <h3>🎥 إضافة فيديو دراسي جديد (رفع مباشر من الجهاز)</h3>
+            <form id="uploadVideoForm">
+                <div class="form-group">
+                    <label for="videoTitle">عنوان الفيديو:</label>
+                    <input type="text" id="videoTitle" placeholder="مثال: شرح المحاضرة الأولى" required>
+                </div>
+                <div class="form-group">
+                    <label for="videoFile">اختر ملف الفيديو من جهازك (MP4):</label>
+                    <input type="file" id="videoFile" accept="video/*" required>
+                    <div class="progress-bar-container" id="progressContainer">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <small id="progressText" style="display:block; text-align:center; margin-top:5px; color:#555;">جاري الرفع: 0%</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="videoMonth">تحديد الشهر الدراسي:</label>
+                    <select id="videoMonth" required>
+                        <option value="" disabled selected>اختر الشهر الدراسي...</option>
+                        <option value="10">شهر أكتوبر (10)</option>
+                        <option value="11">شهر نوفمبر (11)</option>
+                        <option value="12">شهر ديسمبر (12)</option>
+                        <option value="1">شهر يناير (1)</option>
+                        <option value="2">شهر فبراير (2)</option>
+                        <option value="3">شهر مارس (3)</option>
+                        <option value="4">شهر أبريل (4)</option>
+                        <option value="5">شهر مايو (5)</option>
+                        <option value="6">شهر يونيو (6)</option>
+                        <option value="7">مراجعة نهائية (7)</option>
+                    </select>
+                </div>
+                <button type="submit" id="videoSubmitBtn" class="btn-submit">بدء رفع الفيديو الآن 🚀</button>
+            </form>
+        </div>
+
+        <div class="admin-section">
+            <h3>👥 إدارة الطلاب المسجلين</h3>
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>اسم المستخدم (الطالب)</th>
+                        <th>كلمة المرور</th>
+                        <th>الشهر المدفوع حالياً</th>
+                        <th>حالة الحساب</th>
+                        <th>إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsBody"></tbody>
+            </table>
+        </div>
+
+        <div class="admin-section">
+            <h3>📋 الفيديوهات المرفوعة على السيرفر</h3>
+            <table class="students-table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>العنوان</th>
+                        <th>الشهر الدراسي</th>
+                        <th>الرابط المولد</th>
+                        <th>التحكم</th>
+                    </tr>
+                </thead>
+                <tbody id="videosTableBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
